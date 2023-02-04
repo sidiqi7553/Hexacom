@@ -25,7 +25,7 @@ class VerificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: Provider.of<SplashProvider>(context, listen: false).configModel.emailVerification ? ResponsiveHelper.isDesktop(context)? PreferredSize(child: WebAppBar(), preferredSize: Size.fromHeight(120))  : CustomAppBar(title: getTranslated('verify_email', context)):ResponsiveHelper.isDesktop(context)? PreferredSize(child: MainAppBar(), preferredSize: Size.fromHeight(80)) : CustomAppBar(title: getTranslated('', context)),
+      appBar: Provider.of<SplashProvider>(context, listen: false).configModel.emailVerification ? ResponsiveHelper.isDesktop(context)? PreferredSize(child: WebAppBar(), preferredSize: Size.fromHeight(120))  : CustomAppBar(title: getTranslated('verify_email', context)):ResponsiveHelper.isDesktop(context)? PreferredSize(child: MainAppBar(), preferredSize: Size.fromHeight(80)) : CustomAppBar(title: getTranslated('assets/icon/bag.svg', context)),
 
       body: SafeArea(
         child: Scrollbar(

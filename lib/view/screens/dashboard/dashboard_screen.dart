@@ -168,8 +168,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      bottomItems(Icons.home, 'assets/icon/home.svg', 'Home', 0),
-                      bottomItems(Icons.video_settings, 'assets/icon/basket.svg', 'Watch', 1),
+                      bottomItems(Icons.home, 'assets/icon/home.svg', 'Home', 1),
+                      bottomItems(Icons.video_settings, 'assets/icon/basket.svg', 'Watch', 0),
                       bottomItems(Icons.groups, 'assets/icon/bag.svg', 'Groups', 2),
                       bottomItems(Icons.pages, 'assets/icon/heart.svg', 'Pages', 3),
                       bottomItems(Icons.menu, 'assets/icon/user.svg', 'Menu', 4),
