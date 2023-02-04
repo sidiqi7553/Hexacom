@@ -86,20 +86,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ResponsiveHelper.isDesktop(context) ? SliverToBoxAdapter(child: SizedBox()) : SliverAppBar(
                   floating: true,
                   elevation: 0,
-                  centerTitle: true,
+                  centerTitle: false,
                   automaticallyImplyLeading: false,
                   backgroundColor: Theme.of(context).cardColor,
                   pinned: ResponsiveHelper.isTab(context) ? true : false,
-                  leading: ResponsiveHelper.isTab(context) ? IconButton(
-                    onPressed: () => drawerGlobalKey.currentState.openDrawer(),
-                    icon: Icon(Icons.menu,color: Colors.black),
-                  ): IconButton(
-                    onPressed: () => Navigator.pushNamed(context, Routes.getNotificationRoute()),
-                    icon:SvgPicture.asset(
-                        "assets/icon/bell.svg",
-                        semanticsLabel: 'A red up arrow'
-                    ),
-                  ),
 
                   title:  Image.asset(Images.logo, width: 70, height: 80),
                   actions: [
@@ -108,59 +98,70 @@ class _HomeScreenState extends State<HomeScreen> {
                     //   icon: Icon(Icons.notifications_none_rounded, color: Theme.of(context).textTheme.bodyText1.color),
                     // ),
                     // ResponsiveHelper.isTab(context) ?
-                    IconButton(
-                      onPressed: () => Navigator.pushNamed(context, Routes.getDashboardRoute('cart')),
-                      icon: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          SvgPicture.asset(
-                              "assets/icon/bag.svg",
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () => Navigator.pushNamed(context, Routes.getNotificationRoute()),
+                          icon:SvgPicture.asset(
+                              "assets/icon/bell.svg",
                               semanticsLabel: 'A red up arrow'
                           ),
-                          Positioned(
-                            bottom: -7, left: -7,
-                            child: Container(
-                              padding: EdgeInsets.all(6),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
-                              child: Center(
-                                child: Text(
-                                  "\$"+Provider.of<CartProvider>(context).cartList.length.toString(),
-                                  style: rubikMedium.copyWith(color: Colors.white, fontSize: 8),
+                        ),
+                        IconButton(
+                          onPressed: () => Navigator.pushNamed(context, Routes.getDashboardRoute('cart')),
+                          icon: Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              SvgPicture.asset(
+                                  "assets/icon/bag.svg",
+                                  semanticsLabel: 'A red up arrow'
+                              ),
+                              Positioned(
+                                bottom: -7, left: -7,
+                                child: Container(
+                                  padding: EdgeInsets.all(6),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+                                  child: Center(
+                                    child: Text(
+                                      "\$"+Provider.of<CartProvider>(context).cartList.length.toString(),
+                                      style: rubikMedium.copyWith(color: Colors.white, fontSize: 8),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     )
                         // : SizedBox(),
                   ],
                 ),
 
                 // Search Button
-                ResponsiveHelper.isDesktop(context) ? SliverToBoxAdapter(child: SizedBox()) : SliverPersistentHeader(
-                  pinned: true,
-                  delegate: SliverDelegate(child: Center(
-                    child: InkWell(
-                      onTap: () => Navigator.pushNamed(context, Routes.getSearchRoute()),
-                      child: Container(
-                        height: 60, width: 1170,
-                        color: Theme.of(context).cardColor,
-                        padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL, vertical: 5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              // color: ColorResources.getSearchBg(context),
-                              borderRadius: BorderRadius.circular(0),border: Border.all(color: ColorResources.COLOR_NEW_FORM_BORDER)),
-                          child: Row(children: [
-                            Padding(padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL), child: Icon(Icons.search, size: 25)),
-                            Expanded(child: Text("Search", style: rubikRegular.copyWith(fontSize: 12))),
-                          ]),
-                        ),
-                      ),
-                    ),
-                  )),
-                ),
+                // SliverPersistentHeader(
+                //   pinned: true,
+                //   delegate: SliverDelegate(child: Center(
+                //     child: InkWell(
+                //       onTap: () => Navigator.pushNamed(context, Routes.getSearchRoute()),
+                //       child: Container(
+                //         height: 60, width: 1170,
+                //         color: Theme.of(context).cardColor,
+                //         padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL, vertical: 5),
+                //         child: Container(
+                //           decoration: BoxDecoration(
+                //               // color: ColorResources.getSearchBg(context),
+                //               borderRadius: BorderRadius.circular(0),border: Border.all(color: ColorResources.COLOR_NEW_FORM_BORDER)),
+                //           child: Row(children: [
+                //             Padding(padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL), child: Icon(Icons.search, size: 25)),
+                //             Expanded(child: Text("Search", style: rubikRegular.copyWith(fontSize: 12))),
+                //           ]),
+                //         ),
+                //       ),
+                //     ),
+                //   )),
+                // ),
 
                 SliverToBoxAdapter(
                   child: ConstrainedBox(
@@ -181,12 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                               ),
 
-                              Consumer<ProductProvider>(
-                                builder: (context, offerProduct, child) {
-                                  return offerProduct.offerProductList == null ? OfferProductView() : offerProduct.offerProductList.length == 0
-                                      ? SizedBox() : OfferProductView();
-                                },
-                              ),
+
 
                               ResponsiveHelper.isDesktop(context) ? SizedBox() : Consumer<BannerProvider>(
                                 builder: (context, banner, child) {
@@ -207,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: TitleWidget(title: "New Arrivals"),
                               ),
                               ProductView(productType: ProductType.POPULAR_PRODUCT, scrollController: _scrollController),
-                                SizedBox()
+                              SizedBox()
 
 
 

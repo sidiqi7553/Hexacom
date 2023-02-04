@@ -1,4 +1,7 @@
 import 'package:emarket_user/helper/responsive_helper.dart';
+import 'package:emarket_user/utill/routes.dart';
+import 'package:emarket_user/view/screens/category/category_screen.dart';
+import 'package:emarket_user/view/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:emarket_user/helper/network_info.dart';
 import 'package:emarket_user/localization/language_constrants.dart';
@@ -43,9 +46,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     _screens = [
       HomeScreen(),
+
       CartScreen(),
+      SearchScreen(),
       OrderScreen(),
-      WishListScreen(),
+      // WishListScreen(),
       MenuScreen(onTap: (int pageIndex) {
         _setPage(pageIndex);
       }),
@@ -78,11 +83,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
           currentIndex: _pageIndex,
           type: BottomNavigationBarType.fixed,
           items: [
-            _barItem("assets/icon/home.svg", getTranslated('home', context), 0),
-            _barItem("assets/icon/basket.svg", getTranslated('cart', context), 1),
-            _barItem("assets/icon/bag.svg", getTranslated('order', context), 2),
-            _barItem("assets/icon/heart.svg", getTranslated('favourite', context), 3),
-            _barItem("assets/icon/user.svg", getTranslated('menu', context), 4)
+            _barItem("assets/icon/home.svg", 'Home', 0),
+            _barItem("assets/icon/heart.svg", 'category', 1),
+            _barItem("assets/icon/Search.svg", 'search', 2),
+            _barItem("assets/icon/basket.svg", 'order', 3),
+            _barItem("assets/icon/user.svg", 'menu',  4)
           ],
           onTap: (int index) {
             _setPage(index);
@@ -103,14 +108,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   BottomNavigationBarItem _barItem(String icon, String label, int index) {
+
     return BottomNavigationBarItem(
 
       backgroundColor:  index == _pageIndex ? Theme.of(context).primaryColor : ColorResources.COLOR_GREY,
       icon: CircleAvatar(
-        backgroundColor: index == _pageIndex ? Theme.of(context).primaryColor.withOpacity(0.3) : Colors.transparent,
+        backgroundColor: index == _pageIndex ? Colors.transparent : Colors.transparent,
         child: Stack(
           clipBehavior: Clip.none, children: [
-            SvgPicture.asset(icon, color: index == _pageIndex ?  ColorResources.COLOR_BLACK : ColorResources.COLOR_GREY, height: 25),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SvgPicture.asset(icon, color: index == _pageIndex ?  Colors.blue : ColorResources.COLOR_BLACK, height: 25),
+                Text(
+                  label
+                  ,style: TextStyle(
+                  fontSize: 9,
+                  color: index == _pageIndex ?  Colors.blue : ColorResources.COLOR_BLACK,
+
+                ),
+                )
+              ],
+            ),
             index == 1 ? Positioned(
               top: -7, right: -7,
               child: Container(
@@ -126,7 +145,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ],
         ),
       ),
-      label: "",
+ label: ""
     );
   }
 

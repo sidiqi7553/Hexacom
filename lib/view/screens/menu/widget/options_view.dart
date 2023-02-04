@@ -1,4 +1,5 @@
 import 'package:emarket_user/provider/splash_provider.dart';
+import 'package:emarket_user/view/screens/wishlist/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:emarket_user/helper/responsive_helper.dart';
 import 'package:emarket_user/localization/language_constrants.dart';
@@ -57,9 +58,9 @@ class OptionsView extends StatelessWidget {
                   )),
                   child: ListTile(
                     onTap: () => ResponsiveHelper.isMobilePhone()
-                        ? onTap(2)
+                        ? onTap(3)
                         : Navigator.pushNamed(
-                            context, Routes.getDashboardRoute('order')),
+                            context, Routes.getDashboardRoute('favourite')),
                     leading: Container(
                         height: 40,
                         width: 40,
@@ -115,6 +116,40 @@ class OptionsView extends StatelessWidget {
                       size: 20,
                     ),
                     title: Text(getTranslated('profile', context),
+                        style: rubikMedium.copyWith(
+                            fontSize: Dimensions.FONT_SIZE_LARGE)),
+                  ),
+                ),
+                Container(
+                  height: 55,
+                  decoration: BoxDecoration(
+                      border: Border(
+                    top: BorderSide(width: 2.0, color: Color(0xffECEDEE)),
+                  )),
+                  child: ListTile(
+                    onTap: () =>
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>WishListScreen())),
+                    leading: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border:
+                                Border.all(color: Color(0xffECEDEE), width: 2)),
+                        child: Center(
+                            child: Image.asset(Images.profile,
+                                width: 20,
+                                height: 20,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .color))),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: ColorResources.COLOR_BLACK,
+                      size: 20,
+                    ),
+                    title: Text(getTranslated('favourite', context),
                         style: rubikMedium.copyWith(
                             fontSize: Dimensions.FONT_SIZE_LARGE)),
                   ),
